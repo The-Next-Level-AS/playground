@@ -1,6 +1,4 @@
 import streamlit as st
-from code_editor import code_editor
-import random
 import pandas as pd
 from streamlit_extras.add_vertical_space import add_vertical_space
 import streamlit.components.v1 as components
