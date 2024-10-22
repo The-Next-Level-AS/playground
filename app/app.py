@@ -39,7 +39,7 @@ st.markdown(
       display: none;
     }
     [data-testid="stMainBlockContainer"] {
-      padding-top: 0;
+      padding-top: 0.75rem;
     }
     [data-testid="stSidebar"] {
       top: 0;
@@ -54,9 +54,14 @@ st.markdown(
       box-shadow: hsl(220deg 12.5% 50% / 25%) 0px 0px 0px 10000px;
       mix-blend-mode: multiply;
     }
-    [data-testid="stElementContainer"] * {
-      pointer-events: none;
-      user-modify: none;
+    [data-testid="stHtml"] strong {
+      margin-bottom: -0.75rem;
+      display: block;
+    }
+    [data-testid="stSidebarCollapsedControl"] {
+      top: 0;
+      left: 0.25rem;
+      transform: scale(0.75);
     }
   </style>
 """,
@@ -97,7 +102,7 @@ with col2:
         use_container_width=True,
         hide_index=True,
     )
-    st.html("<strong>Retrieved data:</strong>")
+    st.html("<strong>Current retrieved data:</strong>")
     container3 = st.container(border=True)
     container3.json(
         {},
