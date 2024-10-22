@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
+from streamlit_extras.button_selector import button_selector
 from streamlit_extras.add_vertical_space import add_vertical_space
 import streamlit.components.v1 as components
-from streamlit_extras.button_selector import button_selector
 
 with open("./default.html", "r", encoding="utf-8") as file:
     default = file.read()
