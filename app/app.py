@@ -12,10 +12,10 @@ with open("./default.html", "r", encoding="utf-8") as file:
 with open("./boilerplates/outland.json", "r", encoding="utf-8") as outland:
     outland_boilerplate = json.load(outland)
 
-with open(
-    "./boilerplates/outland_product_data_extract.json", "r", encoding="utf-8"
-) as outland_products:
-    outland_product_data_extract = json.load(outland_products)
+# with open(
+#     "./boilerplates/outland_product_data_extract.json", "r", encoding="utf-8"
+# ) as outland_products:
+#     outland_product_data_extract = json.load(outland_products)
 
 df = pd.DataFrame(outland_boilerplate["data_sources"])
 
@@ -69,7 +69,9 @@ col1, col2 = st.columns([1, 3], gap="medium")
 
 random_i = random.randint(0, 4994)
 
-extract = outland_product_data_extract[random_i : random_i + 5]
+# extract = outland_product_data_extract[random_i : random_i + 5]
+
+extract = []
 
 with col1:
     st.html("<strong>User journeys:</strong>")
