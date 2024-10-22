@@ -89,7 +89,7 @@ with col2:
             ),
             "url": st.column_config.LinkColumn("App URL"),
             "views_history": st.column_config.LineChartColumn(
-                "Views (past 30 fsdays)", y_min=0, y_max=5000
+                "Views (vvpast 30 fsdays)", y_min=0, y_max=5000
             ),
         },
         use_container_width=True,
