@@ -1,13 +1,33 @@
 {
+  "data_sources": ["outland/outland_product_data_extract.json"],
   "user_journeys": [
     {
       "name": "Baseline",
       "id": "baseline",
       "matrices": ["outland/generic_home_screen.html"]
     },
-    { "name": "Gift buyer", "id": "gift_buyer", "matrices": [] },
-    { "name": "Piggybacker", "id": "piggybacker" },
-    { "name": "Researcher", "id": "researcher" },
-    { "name": "Outlander", "id": "outlander" }
+    {
+      "name": "Gift buyer",
+      "id": "gift_buyer",
+      "matrices": ["outland/gift_buyer_home_screen.html"]
+    },
+    {
+      "name": "Piggybacker",
+      "id": "piggybacker",
+      "matrices": ["outland/piggybacker_home_screen.html"]
+    },
+    {
+      "name": "Researcher",
+      "id": "researcher",
+      "matrices": ["outland/researcher_home_screen.html"]
+    },
+    {
+      "name": "Outlander",
+      "id": "outlander",
+      "matrices": [
+        "outland/outlander_home_screen.html",
+        "outland/outlander_dashboard.html"
+      ]
+    }
   ]
 }

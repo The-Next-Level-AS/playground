@@ -4,7 +4,7 @@ from streamlit_extras.button_selector import button_selector
 from streamlit_extras.add_vertical_space import add_vertical_space
 import streamlit.components.v1 as components
 import json
-
+import random
 
 with open("./default.html", "r", encoding="utf-8") as file:
     default = file.read()
@@ -12,21 +12,12 @@ with open("./default.html", "r", encoding="utf-8") as file:
 with open("./boilerplates/outland.json", "r", encoding="utf-8") as outland:
     outland_boilerplate = json.load(outland)
 
-df = pd.DataFrame(
-    {
-        "Name": ["", "", ""],
-        "Type": [
-            "",
-            "",
-            "",
-        ],
-        "Size": [
-            "",
-            "",
-            "",
-        ],
-    }
-)
+with open(
+    "./boilerplates/outland_product_data_extract.json", "r", encoding="utf-8"
+) as outland_products:
+    outland_product_data_extract = json.load(outland_products)
+
+df = pd.DataFrame(outland_boilerplate["data_sources"])
 
 title = "✨ Playground"
 st.set_page_config(
@@ -76,6 +67,10 @@ boilerplate = st.sidebar.selectbox("Boilerplate:", ("", "Outland"), index=1)
 
 col1, col2 = st.columns([1, 3], gap="medium")
 
+random_i = random.randint(0, 4994)
+
+extract = outland_product_data_extract[random_i : random_i + 5]
+
 with col1:
     st.html("<strong>User journeys:</strong>")
     container = st.container(border=True)
@@ -90,25 +85,25 @@ with col2:
     st.html("<strong>Data sources:</strong>")
     st.dataframe(
         df,
-        column_config={
-            "name": "App name",
-            "stars": st.column_config.NumberColumn(
-                "Github Stars",
-                help="Number of stars on GitHub",
-                format="%d ⭐",
-            ),
-            "url": st.column_config.LinkColumn("App URL"),
-            "views_history": st.column_config.LineChartColumn(
-                "Views (vvpast 30 fsdays)", y_min=0, y_max=5000
-            ),
-        },
+        # column_config={
+        #     "name": "App name",
+        #     "stars": st.column_config.NumberColumn(
+        #         "Github Stars",
+        #         help="Number of stars on GitHub",
+        #         format="%d ⭐",
+        #     ),
+        #     "url": st.column_config.LinkColumn("App URL"),
+        #     "views_history": st.column_config.LineChartColumn(
+        #         "Views (vvpast 30 fsdays)", y_min=0, y_max=5000
+        #     ),
+        # },
         use_container_width=True,
         hide_index=True,
     )
     st.html("<strong>Current retrieved data:</strong>")
     container3 = st.container(border=True)
     container3.json(
-        {},
+        extract,
         expanded=1,
     )
 # container.write(f"Selected month: {month_list[selected_index]}")
@@ -121,7 +116,7 @@ with container2:
             for item in user_journeys[selected_user_journey]["matrices"]
         ],
         index=0,
-        spec=4,
+        spec=3,
     )
 # st.html("<strong>Matrix:</strong>")
 # st.code(default, language="html")
@@ -132,7 +127,9 @@ st.sidebar.selectbox(
     ("Mistral-Nemo-Instruct-2407", "Phi-3-mini-4k-instruct"),
     index=0,
 )
-st.sidebar.selectbox("Embedding Model:", ("NoInstruct small Embedding v0"), index=0)
+st.sidebar.selectbox(
+    "Text Embedding Model:", ("NoInstruct small Embedding v0"), index=0
+)
 with st.sidebar:
     add_vertical_space()
 st.sidebar.html("<strong>Signal:</strong>")
