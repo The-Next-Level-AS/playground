@@ -1,0 +1,8 @@
+{
+  "user_journeys": [
+    { "name": "Gavekjøper", "id": "gift_buyer" },
+    { "name": "Piggybacker", "id": "piggybacker" },
+    { "name": "Researcher", "id": "researcher" },
+    { "name": "Outlander", "id": "outlander" }
+  ]
+}

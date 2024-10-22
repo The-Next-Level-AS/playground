@@ -3,9 +3,14 @@ import pandas as pd
 from streamlit_extras.button_selector import button_selector
 from streamlit_extras.add_vertical_space import add_vertical_space
 import streamlit.components.v1 as components
+import json
+
 
 with open("./default.html", "r", encoding="utf-8") as file:
     default = file.read()
+
+with open("./boilerplates/outland.json", "r", encoding="utf-8") as outland:
+    outland_boilerplate = json.load(outland)
 
 df = pd.DataFrame(
     {
@@ -51,30 +56,20 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.sidebar.header(title)
-# category_indices = {"lasagne": 0, "carbonara": 1, "macaroni": 2}
-option = st.sidebar.selectbox(
-    label="Boilerplate:",
-    # index=category_indices[parameters.category.value],
-    options=[""],
-    # key=parameters.category.key,
-    # on_change=functools.partial(
-    #     parameters.update_parameter_from_session_state,
-    #     key=parameters.category.key
-    # )
-)
-col1, col2 = st.columns(2)
 
+boilerplate = st.sidebar.selectbox("Boilerplate:", ("", "Outland"), index=1)
+
+col1, col2 = st.columns(2)
 
 with col1:
     st.html("<strong>User journeys:</strong>")
     container = st.container(border=True)
     with container:
-        month_list = []
-        selected_index = button_selector(
-            month_list,
-            index=0,
-            spec=1,
-            key="button_selector_example_month_selector",
+        user_journeys = (
+            outland_boilerplate["user_journeys"] if boilerplate == "Outland" else []
+        )
+        selected_user_journey = button_selector(
+            [item["name"] for item in user_journeys], index=0, spec=1
         )
 with col2:
     st.html("<strong>Data sources:</strong>")
