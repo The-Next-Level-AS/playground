@@ -74,7 +74,7 @@ st.sidebar.header(title)
 
 boilerplate = st.sidebar.selectbox("Boilerplate:", ("", "Outland"), index=1)
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([1, 3], gap="medium")
 
 with col1:
     st.html("<strong>User journeys:</strong>")
@@ -127,7 +127,11 @@ with container2:
 # st.code(default, language="html")
 with st.sidebar:
     add_vertical_space()
-st.sidebar.selectbox("Text Generation Model:", ("Mistral-Nemo-Instruct-2407"), index=0)
+st.sidebar.selectbox(
+    "Text Generation Model:",
+    ("Mistral-Nemo-Instruct-2407", "Phi-3-mini-4k-instruct"),
+    index=0,
+)
 st.sidebar.selectbox("Embedding Model:", ("NoInstruct small Embedding v0"), index=0)
 with st.sidebar:
     add_vertical_space()
@@ -156,6 +160,9 @@ txt = st.sidebar.text_area(
 st.html("<strong>Artifact:</strong>")
 components.iframe(
     "https://platform.nxtl.ai/"
-    + user_journeys[selected_user_journey]["matrices"][selected_matrix],
+    + ("outland?matrix=" if boilerplate == "Outland" else "")
+    + user_journeys[selected_user_journey]["matrices"][selected_matrix]
+    .split("/")[1]
+    .split(".")[0],
     height=500,
 )
