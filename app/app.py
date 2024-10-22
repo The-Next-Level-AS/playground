@@ -151,11 +151,12 @@ txt = st.sidebar.text_area(
     # "was the epoch of incredulity, it was the season of Light, it was the "
     # "season of Darkness, it was the spring of hope, it was the winter of "
     # "despair, (...)",
-    height=256,
+    height=128,
     disabled=True,
 )
 
 # st.write(f"You wrote {len(txt)} characters.")
 st.html("<strong>Artifact:</strong>")
-# components.iframe("https://platform.nxtl.ai/outland", height=500)
-components.iframe("", height=500)
+components.iframe(
+    "https://platform.nxtl.ai/outland" if boilerplate == "Outland" else "", height=500
+)
