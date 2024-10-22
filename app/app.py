@@ -114,8 +114,8 @@ container2 = st.container(border=True)
 with container2:
     selected_matrix = button_selector(
         [
-            item.split("/")[1].split(".")[0]
-            for item in user_journeys[selected_user_journey]["matrices"]
+            item2.split("/")[1].split(".")[0]
+            for item2 in user_journeys[selected_user_journey]["matrices"]
         ],
         index=0,
         spec=3,
