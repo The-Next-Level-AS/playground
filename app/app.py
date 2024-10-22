@@ -160,7 +160,7 @@ txt = st.sidebar.text_area(
 st.html("<strong>Artifact:</strong>")
 components.iframe(
     "https://platform.nxtl.ai/"
-    + ("outland?matrix=" if boilerplate == "Outland" else "")
+    + ("outland/blank.html?matrix=" if boilerplate == "Outland" else "")
     + user_journeys[selected_user_journey]["matrices"][selected_matrix]
     .split("/")[1]
     .split(".")[0],
