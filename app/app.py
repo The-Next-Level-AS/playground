@@ -50,6 +50,13 @@ st.markdown(
     [data-testid="stIFrame"] {
       border: dashed 1px #80808080;
       border-radius: 8px;
+      background: #fff;
+      box-shadow: hsl(220deg 12.5% 50% / 25%) 0px 0px 0px 10000px;
+      mix-blend-mode: multiply;
+    }
+    [data-testid="stElementContainer"] * {
+      pointer-events: none;
+      user-modify: none;
     }
   </style>
 """,
