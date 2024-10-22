@@ -1,6 +1,11 @@
 {
   "user_journeys": [
-    { "name": "Gavekjøper", "id": "gift_buyer" },
+    {
+      "name": "Baseline",
+      "id": "baseline",
+      "matrices": ["outland/generic_home_screen.html"]
+    },
+    { "name": "Gift buyer", "id": "gift_buyer", "matrices": [] },
     { "name": "Piggybacker", "id": "piggybacker" },
     { "name": "Researcher", "id": "researcher" },
     { "name": "Outlander", "id": "outlander" }

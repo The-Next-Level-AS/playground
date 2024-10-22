@@ -100,12 +100,13 @@ with col2:
 st.html("<strong>Matrices:</strong>")
 container2 = st.container(border=True)
 with container2:
-    month_list2 = []
-    selected_index2 = button_selector(
-        month_list2,
+    selected_matrix = button_selector(
+        [
+            item.split("/")[1].split(".")[0]
+            for item in user_journeys[selected_user_journey]["matrices"]
+        ],
         index=0,
         spec=4,
-        key="button_selector_example_month_selector2",
     )
 # st.html("<strong>Matrix:</strong>")
 # st.code(default, language="html")
@@ -158,5 +159,7 @@ txt = st.sidebar.text_area(
 # st.write(f"You wrote {len(txt)} characters.")
 st.html("<strong>Artifact:</strong>")
 components.iframe(
-    "https://platform.nxtl.ai/outland" if boilerplate == "Outland" else "", height=500
+    "https://platform.nxtl.ai/"
+    + user_journeys[selected_user_journey]["matrices"][selected_matrix],
+    height=500,
 )
