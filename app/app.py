@@ -63,6 +63,9 @@ st.markdown(
       left: 0.25rem;
       transform: scale(0.75);
     }
+    textarea {
+      font-family: monospace !important;
+    }
   </style>
 """,
     unsafe_allow_html=True,
@@ -124,27 +127,8 @@ with container2:
 # st.code(default, language="html")
 with st.sidebar:
     add_vertical_space()
-st.sidebar.selectbox(
-    label="Large Language Model:",
-    # index=category_indices[parameters.category.value],
-    options=[""],
-    # key=parameters.category.key,
-    # on_change=functools.partial(
-    #     parameters.update_parameter_from_session_state,
-    #     key=parameters.category.key
-    # )
-)
-st.sidebar.selectbox(
-    label="Embedding Model:",
-    # index=category_indices[parameters.category.value],
-    options=[""],
-    # options=["NoInstruct small Embedding v0"],
-    # key=parameters.category.key,
-    # on_change=functools.partial(
-    #     parameters.update_parameter_from_session_state,
-    #     key=parameters.category.key
-    # )
-)
+st.sidebar.selectbox("Text Generation Model:", ("Mistral-Nemo-Instruct-2407"), index=0)
+st.sidebar.selectbox("Embedding Model:", ("NoInstruct small Embedding v0"), index=0)
 with st.sidebar:
     add_vertical_space()
 st.sidebar.html("<strong>Signal:</strong>")
