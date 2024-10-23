@@ -5,6 +5,8 @@ from streamlit_extras.add_vertical_space import add_vertical_space
 import streamlit.components.v1 as components
 import json
 import random
+from streamlit_js_callback import streamlit_js_callback
+import time
 
 with open("./default.html", "r", encoding="utf-8") as file:
     default = file.read()
@@ -124,26 +126,89 @@ with container2:
 # st.code(default, language="html")
 with st.sidebar:
     add_vertical_space()
-st.sidebar.selectbox(
+selected_tgm = st.sidebar.selectbox(
     "Text Generation Model:",
     ("Mistral-Nemo-Instruct-2407", "Phi-3-mini-4k-instruct"),
     index=0,
 )
-st.sidebar.selectbox(
+
+
+tgm = "mistral"
+
+if selected_tgm == "Mistral-Nemo-Instruct-2407":
+    tgm = "mistral"
+elif selected_tgm == "Phi-3-mini-4k-instruct":
+    tgm = "phi"
+else:
+    tgm = "mistral"
+
+
+selected_tem = st.sidebar.selectbox(
     "Text Embedding Model:", ("NoInstruct small Embedding v0"), index=0
 )
+
+tem = "noinstruct"
+
+if selected_tem == "NoInstruct small Embedding v0":
+    tem = "noinstruct"
+else:
+    tem = "noinstruct"
+
 with st.sidebar:
     add_vertical_space()
 st.sidebar.html("<strong>Signal:</strong>")
-txt = st.sidebar.text_area(
+
+st.html("<strong>Artifact:</strong>")
+components.iframe(
+    "https://platform.nxtl.ai/"
+    # "http://localhost:8002/"
+    + (
+        "outland/blank.html?tgm=" + tgm + "&tem=" + tem + "&matrix="
+        if boilerplate == "Outland"
+        else ""
+    )
+    + user_journeys[selected_user_journey]["matrices"][selected_matrix]
+    .split("/")[1]
+    .split(".")[0],
+    height=500,
+)
+
+
+# st.sidebar.text_area(
+#     "Accumulated user signals:",
+#     st.query_params.log,
+#     height=256,
+# )
+
+
+# st.write(f"You wrote {len(txt)} characters.")
+
+st.sidebar.text_area(
     "Accumulated user signals:",
-    # "It was the best of times, it was the worst of times, it was the age of "
-    # "wisdom, it was the age of foolishness, it was the epoch of belief, it "
-    # "was the epoch of incredulity, it was the season of Light, it was the "
-    # "season of Darkness, it was the spring of hope, it was the winter of "
-    # "despair, (...)",
+    str(st.query_params.log),
     height=256,
 )
+
+# def use_return():
+
+#     result = streamlit_js_callback(
+#         """
+#         return "wer" + window.frameElement.getAttribute("data-test");
+#         """
+#     )
+
+#     # Update the placeholder with the new messages
+#     if result:
+#         st.sidebar.text_area(
+#             "Accumulated user signals:",
+#             str(result),
+#             height=256,
+#         )
+
+
+# # # Call the function in your Streamlit app
+# use_return()
+
 txt = st.sidebar.text_area(
     "Current sentiment:",
     # "It was the best of times, it was the worst of times, it was the age of "
@@ -153,15 +218,4 @@ txt = st.sidebar.text_area(
     # "despair, (...)",
     height=128,
     disabled=True,
-)
-
-# st.write(f"You wrote {len(txt)} characters.")
-st.html("<strong>Artifact:</strong>")
-components.iframe(
-    "https://platform.nxtl.ai/"
-    + ("outland/blank.html?matrix=" if boilerplate == "Outland" else "")
-    + user_journeys[selected_user_journey]["matrices"][selected_matrix]
-    .split("/")[1]
-    .split(".")[0],
-    height=500,
 )
