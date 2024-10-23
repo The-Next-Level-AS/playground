@@ -125,5 +125,5 @@ components.iframe(
     .split(".")[0],
     height=500,
 )
-st.text_area("Accumulated user signals:", str(st.query_params.log), height=256)
+st.sidebar.text_area("Accumulated user signals:", str(st.query_params.log), height=256)
 st.sidebar.text_area("Current sentiment:", "", height=128, disabled=True)
