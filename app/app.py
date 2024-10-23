@@ -11,53 +11,53 @@ st.set_page_config(
     initial_sidebar_state="expanded",
     menu_items={},
 )
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebarHeader"], [data-testid="stHeader"] {
+            display: none;
+        }
+        [data-testid="stMainBlockContainer"] {
+            padding-top: 0.75rem;
+        }
+        [data-testid="stSidebar"] {
+            top: 0;
+        }
+        textarea {
+            resize: none !important;
+        }
+        [data-testid="stIFrame"] {
+            border: dashed 1px #80808080;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: hsl(220deg 12.5% 50% / 25%) 0px 0px 0px 10000px;
+            mix-blend-mode: multiply;
+        }
+        [data-testid="stHtml"] strong {
+            margin-bottom: -0.75rem;
+            display: block;
+        }
+        [data-testid="stSidebarCollapsedControl"] {
+            top: 0;
+            left: 0.25rem;
+            transform: scale(0.75);
+        }
+        textarea {
+            font-family: monospace !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 @st.cache_data
-def go():
-    st.markdown(
-        """
-        <style>
-            [data-testid="stSidebarHeader"], [data-testid="stHeader"] {
-                display: none;
-            }
-            [data-testid="stMainBlockContainer"] {
-                padding-top: 0.75rem;
-            }
-            [data-testid="stSidebar"] {
-                top: 0;
-            }
-            textarea {
-                resize: none !important;
-            }
-            [data-testid="stIFrame"] {
-                border: dashed 1px #80808080;
-                border-radius: 8px;
-                background: #fff;
-                box-shadow: hsl(220deg 12.5% 50% / 25%) 0px 0px 0px 10000px;
-                mix-blend-mode: multiply;
-            }
-            [data-testid="stHtml"] strong {
-                margin-bottom: -0.75rem;
-                display: block;
-            }
-            [data-testid="stSidebarCollapsedControl"] {
-                top: 0;
-                left: 0.25rem;
-                transform: scale(0.75);
-            }
-            textarea {
-                font-family: monospace !important;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+def load_boilerplate():
+    with open("./boilerplates/outland.json", "r", encoding="utf-8") as outland:
+        return json.load(outland)
 
 
-go()
-with open("./boilerplates/outland.json", "r", encoding="utf-8") as outland:
-    outland_boilerplate = json.load(outland)
+outland_boilerplate = load_boilerplate()
 df = pd.DataFrame(outland_boilerplate["data_sources"])
 st.sidebar.header("✨ Playground")
 boilerplate = st.sidebar.selectbox("Boilerplate:", ("", "Outland"), index=1)
@@ -125,14 +125,5 @@ components.iframe(
     .split(".")[0],
     height=500,
 )
-
-
-@st.fragment
-def user_signal_fragment():
-    st.text_area("Accumulated user signals:", str(st.query_params.log), height=256)
-
-
-with st.sidebar:
-    user_signal_fragment()
-
+st.text_area("Accumulated user signals:", str(st.query_params.log), height=256)
 st.sidebar.text_area("Current sentiment:", "", height=128, disabled=True)
