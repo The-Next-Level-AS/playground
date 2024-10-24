@@ -33,6 +33,9 @@ st.markdown(
             box-shadow: hsl(220deg 12.5% 50% / 25%) 0px 0px 0px 10000px;
             mix-blend-mode: multiply;
         }
+        [data-testid="stIFrame"]:nth-of-type(2) {
+            display: none;
+        }
         [data-testid="stHtml"] strong {
             margin-bottom: -0.75rem;
             display: block;
