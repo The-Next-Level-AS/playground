@@ -133,3 +133,9 @@ components.iframe(
 )
 st.sidebar.text_area("Accumulated user signals:", str(st.query_params.log), height=256)
 st.sidebar.text_area("Current sentiment:", "", height=128, disabled=True)
+js = """
+        <script>
+            window.parent.postMessage("streamlit_ready", '*');
+        </script>
+    """
+st.components.v1.html(js, height=0)
