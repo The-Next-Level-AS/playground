@@ -116,7 +116,13 @@ st.html("<strong>Artifact:</strong>")
 components.iframe(
     "https://platform.nxtl.ai/"
     + (
-        "outland/blank.html?tgm=" + tgm + "&tem=" + tem + "&matrix="
+        "outland/blank.html?log="
+        + str(st.query_params.log)
+        + "&tgm="
+        + tgm
+        + "&tem="
+        + tem
+        + "&matrix="
         if boilerplate == "Outland"
         else ""
     )
