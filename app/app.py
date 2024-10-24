@@ -135,6 +135,7 @@ st.sidebar.text_area("Accumulated user signals:", str(st.query_params.log), heig
 st.sidebar.text_area("Current sentiment:", "", height=128, disabled=True)
 js = """
         <script>
+            alert("this works");
             window.parent.postMessage("streamlit_ready", '*');
         </script>
     """
